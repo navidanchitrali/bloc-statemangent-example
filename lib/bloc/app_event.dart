@@ -6,8 +6,14 @@ abstract class AppEvent {
 }
 
 @immutable
-class Loading implements AppEvent {
-  const Loading();
+class LoginEvent implements AppEvent {
+  final String email;
+  final String password;
+
+  const LoginEvent({
+    required this.email,
+    required this.password,
+  });
 }
 
 @immutable
