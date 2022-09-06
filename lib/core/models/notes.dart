@@ -10,5 +10,4 @@ class Note {
   String toString() => 'Note tile ($title)';
 }
 
-final mocknotes =
-    Iterable.generate(3, ((index) => Note(title: 'Note : $index')));
+final mocknotes = List.generate(3, ((index) => Note(title: 'Note : $index')));

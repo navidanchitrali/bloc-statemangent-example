@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "906444653435",
+    "project_id": "note-app-bloc-statemangement",
+    "storage_bucket": "note-app-bloc-statemangement.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:906444653435:android:f42092abf7be4e4cc633de",
+        "android_client_info": {
+          "package_name": "com.example.bloc_statemanagment_examples"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "906444653435-3p8shf42a2lbcc79hf2b49dgq16qfncv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bloc_statemanagment_examples",
+            "certificate_hash": "6c8a0fdd43e05e23dbeaf633b2733f34bd7cba30"
+          }
+        },
+        {
+          "client_id": "906444653435-9qimhhg33bj5kq337ljna3m63gctpqq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB6nJeRcSelKdtf_iVo5-tP2j_GqBfwJo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "906444653435-9qimhhg33bj5kq337ljna3m63gctpqq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

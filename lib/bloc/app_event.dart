@@ -17,6 +17,22 @@ class LoginEvent implements AppEvent {
 }
 
 @immutable
+class SignUpEvent implements AppEvent {
+  final String email;
+  final String password;
+
+  const SignUpEvent({
+    required this.email,
+    required this.password,
+  });
+}
+
+@immutable
+class addNotesEvent implements AppEvent {
+  const addNotesEvent();
+}
+
+@immutable
 class LoadNotesEvent implements AppEvent {
   const LoadNotesEvent();
 }

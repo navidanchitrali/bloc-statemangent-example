@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+
 class LoginHandle {
   final String token;
+
   LoginHandle({required this.token});
-  const LoginHandle.foobar() : token = 'foobar';
+  LoginHandle.currenUser() : token = FirebaseAuth.instance.currentUser!.uid;
 
   @override
   bool operator ==(covariant LoginHandle other) => token == other.token;
