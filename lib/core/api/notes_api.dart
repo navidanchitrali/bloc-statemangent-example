@@ -1,18 +1,12 @@
 import 'package:bloc_statemanagment_examples/core/models/add_task.dart';
 import 'package:bloc_statemanagment_examples/core/models/notes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-@immutable
-abstract class NotesApiProtocol {
-  const NotesApiProtocol();
-  //Future<Iterable<Note>?> getNotes();
-}
-
-@immutable
-class NoteApi implements NotesApiProtocol {
-  //final _db = FirebaseFirestore.instance;
+class NoteApi {
+  final _db = FirebaseFirestore.instance;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   ///
@@ -20,10 +14,12 @@ class NoteApi implements NotesApiProtocol {
   ///
 
   addTask(Task task) async {
-    // final firebaseDbRef = FirebaseFirestore.instance.collection('Tasks').doc();
-    // task.docId = firebaseDbRef.id;
+    final firebaseDbRef = FirebaseFirestore.instance.collection('Tasks').doc();
+    task.docId = firebaseDbRef.id;
 
-    // await firebaseDbRef.set(task.toJson());
+    await firebaseDbRef
+        .set(task.toJson())
+        .then((value) => print('data added successfullyyy'));
   }
 
   ///
@@ -32,16 +28,16 @@ class NoteApi implements NotesApiProtocol {
   Future<List<Task>> getCurrentUserTask() async {
     List<Task> allTask = [];
     try {
-      // final snapshot = await _db
-      //     .collection('Tasks')
-      //     .where("id", isEqualTo: auth.currentUser!.uid)
-      //     .get();
+      final snapshot = await _db
+          .collection('Tasks')
+          .where("id", isEqualTo: auth.currentUser!.uid)
+          .get();
 
-      // if (snapshot.docs.isNotEmpty) {
-      //   for (final user in snapshot.docs) {
-      //     allTask.add(Task.fromJson(user.data(), user.id));
-      //   }
-      // }
+      if (snapshot.docs.isNotEmpty) {
+        for (final user in snapshot.docs) {
+          allTask.add(Task.fromJson(user.data(), user.id));
+        }
+      }
     } catch (e, s) {
       debugPrint("DataBaseServices  getCurrentUserTask() Exception: $e}");
       print(s);
@@ -49,9 +45,16 @@ class NoteApi implements NotesApiProtocol {
     return allTask;
   }
 
-  @override
-  Future<List<Note>?> getNotes() => Future.delayed(
-        const Duration(seconds: 2),
-        () => mocknotes,
-      );
+  ///
+  /// Remove user task
+  ///
+
+  removeTask({required docId}) async {
+    try {
+      _db.collection('Tasks').doc(docId).delete();
+    } catch (e, s) {
+      debugPrint("DataBaseServices  removeTask() Exception: $e}");
+      print(s);
+    }
+  }
 }

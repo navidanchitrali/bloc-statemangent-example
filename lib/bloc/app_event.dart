@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 
 @immutable
@@ -28,11 +30,21 @@ class SignUpEvent implements AppEvent {
 }
 
 @immutable
-class addNotesEvent implements AppEvent {
-  const addNotesEvent();
+class AddTaskEvent implements AppEvent {
+  final String taskTile;
+  final String taskDescription;
+  const AddTaskEvent({required this.taskTile, required this.taskDescription});
 }
 
 @immutable
-class LoadNotesEvent implements AppEvent {
-  const LoadNotesEvent();
+class LoadTaskEvent implements AppEvent {
+  const LoadTaskEvent();
+}
+
+@immutable
+class DeleteTaskEvent implements AppEvent {
+  final String docId;
+  const DeleteTaskEvent({
+    required this.docId,
+  });
 }

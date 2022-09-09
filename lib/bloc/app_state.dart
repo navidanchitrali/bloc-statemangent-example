@@ -1,33 +1,37 @@
 import 'package:bloc_statemanagment_examples/core/models/add_task.dart';
 import 'package:bloc_statemanagment_examples/core/models/login_model.dart';
-import 'package:bloc_statemanagment_examples/core/models/notes.dart';
 import 'package:bloc_statemanagment_examples/core/models/sign_up_model.dart';
 import 'package:flutter/cupertino.dart';
 
 @immutable
+// ignore: must_be_immutable
 class AppState {
   final bool isLoading;
   final LoginError? loginError;
   final SignUpError? signUpError;
   final LoginHandle? loginHandle;
   final SignUpHandle? signUpHandle;
-  final List<Note>? fetchedNotes;
+  List<Task>? fetchedNotes;
+  bool isAddTaskButtonPressed;
 
-  const AppState.empty()
+  AppState.empty()
       : isLoading = false,
         loginError = null,
         loginHandle = null,
         signUpError = null,
         signUpHandle = null,
+        isAddTaskButtonPressed = false,
         fetchedNotes = null;
 
-  const AppState(
-      {required this.isLoading,
-      required this.loginError,
-      required this.loginHandle,
-      required this.fetchedNotes,
-      required this.signUpError,
-      required this.signUpHandle});
+  AppState({
+    required this.isLoading,
+    required this.loginError,
+    required this.loginHandle,
+    this.fetchedNotes,
+    required this.signUpError,
+    required this.signUpHandle,
+    required this.isAddTaskButtonPressed,
+  });
 
   @override
   String toString() => {

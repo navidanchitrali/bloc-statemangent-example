@@ -1,3 +1,4 @@
+import 'package:bloc_statemanagment_examples/core/constant/colors.dart';
 import 'package:bloc_statemanagment_examples/ui/custom%20widgets/dialogs/generic_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,10 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        primary: lightYumColor,
+      ),
       onPressed: () {
         final email = emailController.text;
         final password = passwordController.text;
@@ -37,7 +41,10 @@ class SignUpButton extends StatelessWidget {
           );
         }
       },
-      child: const Text('Sign Up'),
+      child: const Text(
+        'Sign Up',
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 }

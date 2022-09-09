@@ -1,3 +1,4 @@
+import 'package:bloc_statemanagment_examples/core/constant/colors.dart';
 import 'package:bloc_statemanagment_examples/ui/custom%20widgets/dialogs/generic_dialog.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,8 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(primary: lightYumColor),
       onPressed: () {
         final email = emailController.text;
         final password = passwordController.text;
@@ -37,7 +39,10 @@ class LoginButton extends StatelessWidget {
           );
         }
       },
-      child: const Text('Login'),
+      child: const Text(
+        'Login',
+        style: TextStyle(color: Colors.black),
+      ),
     );
   }
 }
