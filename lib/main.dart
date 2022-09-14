@@ -4,10 +4,7 @@ import 'package:bloc_statemanagment_examples/bloc/app_state.dart';
 import 'package:bloc_statemanagment_examples/core/api/athenticaton_api.dart';
 import 'package:bloc_statemanagment_examples/core/api/notes_api.dart';
 import 'package:bloc_statemanagment_examples/core/constant/colors.dart';
-import 'package:bloc_statemanagment_examples/core/models/login_model.dart';
 import 'package:bloc_statemanagment_examples/ui/custom%20widgets/dialogs/generic_dialog.dart';
-import 'package:bloc_statemanagment_examples/ui/custom%20widgets/dialogs/task_dialog.dart';
-import 'package:bloc_statemanagment_examples/ui/custom%20widgets/iterable_list_view.dart';
 import 'package:bloc_statemanagment_examples/ui/screens/add%20task/add_task_screen.dart';
 import 'package:bloc_statemanagment_examples/ui/screens/loading_screens.dart';
 import 'package:bloc_statemanagment_examples/ui/screens/sign%20in/login_screen.dart';
@@ -78,10 +75,10 @@ class _HomepageState extends State<Homepage> {
             }
           },
           builder: (context, appState) {
-            final notes = appState.fetchedNotes;
+            final tasks = appState.fetchedNotes;
             final FirebaseAuth auth = FirebaseAuth.instance;
 
-            if (notes == null && auth.currentUser == null) {
+            if (tasks == null && auth.currentUser == null) {
               return SignUpScreen(
                 onSignUpTapped: (email, password) {
                   context.read<AppBloc>().add(
@@ -93,7 +90,7 @@ class _HomepageState extends State<Homepage> {
                 },
               );
             }
-            if (notes == null &&
+            if (tasks == null &&
                 auth.currentUser != null &&
                 appState.signUpHandle == null) {
               return LoginScreen(
@@ -123,21 +120,32 @@ class _HomepageState extends State<Homepage> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 50),
+                      child: Text(
+                        tasks!.length.toString() + ' Tasks',
+                        style: const TextStyle(
+                          color: lightYumColor,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                     Expanded(
                       child: ListView.builder(
-                        itemCount: notes!.length,
+                        itemCount: tasks.length,
                         itemBuilder: ((context, index) => ExpansionTile(
                               leading: Checkbox(
-                                activeColor: Colors.blue,
-                                value: notes[index].isDone,
+                                activeColor: Colors.red,
+                                value: tasks[index].isDone,
                                 onChanged: (newValue) {
-                                  notes[index].isDone = newValue;
+                                  tasks[index].isDone = newValue;
                                   setState(() {});
                                   Future.delayed(const Duration(seconds: 1))
                                       .then(
                                     (value) => context.read<AppBloc>().add(
                                           DeleteTaskEvent(
-                                            docId: notes[index].docId!,
+                                            docId: tasks[index].docId!,
                                           ),
                                         ),
                                   );
@@ -145,13 +153,13 @@ class _HomepageState extends State<Homepage> {
                               ),
                               backgroundColor: blueFadeColor,
                               title: Container(
-                                padding: const EdgeInsets.all(13),
+                                padding: const EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                   color: lightYumColor,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Text(
-                                  notes[index].taskTitle!,
+                                  tasks[index].taskTitle!,
                                   style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 20.0,
@@ -161,13 +169,18 @@ class _HomepageState extends State<Homepage> {
                               ),
                               children: <Widget>[
                                 Container(
-                                  decoration: BoxDecoration(
+                                  width: 170,
+                                  decoration: const BoxDecoration(
                                     color: lightYumColor,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(20),
+                                      bottomLeft: Radius.circular(20),
+                                      bottomRight: Radius.circular(20),
+                                    ),
                                   ),
                                   child: ListTile(
                                     title: Text(
-                                      notes[index].taskDescription!,
+                                      tasks[index].taskDescription!,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -181,11 +194,15 @@ class _HomepageState extends State<Homepage> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: FloatingActionButton(
+                        backgroundColor: lightYumColor,
                         onPressed: () {
                           appState.isAddTaskButtonPressed = true;
                           setState(() {});
                         },
-                        child: const Icon(Icons.add),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.black,
+                        ),
                       ),
                     )
                   ],
@@ -202,17 +219,7 @@ class _HomepageState extends State<Homepage> {
             //         ),
             //         TextButton(
             //             onPressed: () {
-            //               // Navigator.of(context).push(
-            //               //   MaterialPageRoute(
-            //               //     builder: (context) {
-            //               //       return SignUpScreen(
-            //               //         onSignUpTapped: (email, password) {
-            //               //           context.read<AppBloc>().add(
-            //               //                 SignUpEvent(
-            //               //                   email: email,
-            //               //                   password: password,
-            //               //                 ),
-            //               //               );
+
             //               //         },
             //               //       );
             //               //     },

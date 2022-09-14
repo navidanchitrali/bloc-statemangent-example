@@ -24,7 +24,7 @@ class AddTaskScreen extends HookWidget {
             ),
             height: 250,
             child: const Padding(
-              padding: EdgeInsets.only(right: 220),
+              padding: EdgeInsets.only(right: 180),
               child: Center(
                 child: Text(
                   'Add Task',
@@ -38,19 +38,34 @@ class AddTaskScreen extends HookWidget {
             ),
           ),
           const SizedBox(
-            height: 100,
+            height: 20,
           ),
-          TextField(
-            controller: titleController,
-            decoration: const InputDecoration(hintText: 'Title'),
-          ),
-          TextField(
-            maxLines: 10,
-            controller: descriptionController,
-            decoration: const InputDecoration(hintText: 'Description'),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: TextField(
+              controller: titleController,
+              decoration: const InputDecoration(
+                hintText: 'Title',
+                hintStyle: TextStyle(color: lightYumColor),
+              ),
+            ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 30),
+            child: TextField(
+              maxLines: 5,
+              controller: descriptionController,
+              decoration: const InputDecoration(
+                hintText: 'Description',
+                hintStyle: TextStyle(color: lightYumColor),
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 20,
           ),
           AddTaskButton(
             titleController: titleController,
